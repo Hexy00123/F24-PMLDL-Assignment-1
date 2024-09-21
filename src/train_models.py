@@ -103,36 +103,3 @@ def make_train_operator_for_tf_idf(params: dict, metrics: dict, dag) -> Callable
 
 if __name__ == "__main__":
     config = read_configs()
-
-    make_train_operator_for_tf_idf(
-        {
-            "model_name": "XGBoost_classic",
-            "module_name": "xgboost",
-            "class_name": "XGBClassifier",
-            "params": {
-                "classifier__n_estimators": 100,
-                "classifier__max_depth": 4,
-                "classifier__device": "cpu",
-                "embedding__max_features": 200,
-            },
-        },
-        {"module": "custom_metrics", "methods": ["f1_weighted", "f1_macro"]},
-        None,
-    )()
-
-    # print([make_train_operator_for_tf_idf(model_params, config["metrics"], None) for model_params in config["models"]["tf_idf"]])
-
-    # train_tf_idf_model_with_gs(
-    #     {
-    #         "model_name": "XGBoost_classic",
-    #         "module_name": "xgboost",
-    #         "class_name": "XGBClassifier",
-    #         "params": {
-    #             "classifier__n_estimators": 200,
-    #             "classifier__depth": 4,
-    #             "classifier__device": "cpu",
-    #             "embedding__max_features": 500,
-    #         },
-    #     },
-    #     {"module": "custom_metrics", "methods": ["f1_weighted", "f1_macro"]},
-    # )

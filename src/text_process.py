@@ -10,14 +10,16 @@ class TextPreprocessor:
 
         russian_stopwords = set(stopwords.words("russian"))
         russian_stopwords.remove("не")
-        russian_stopwords_stemmed = {self.stemmer.stem(word) for word in russian_stopwords}
+        russian_stopwords_stemmed = {
+            self.stemmer.stem(word) for word in russian_stopwords
+        }
         self.russian_stopwords = russian_stopwords.union(russian_stopwords_stemmed)
 
     def clean_text(self, text):
         # Convert text to lowercase
         text = text.lower()
 
-        # Remove specific punctuation marks                 
+        # Remove specific punctuation marks
         text = text.replace("\\n", " ").replace("\\t", " ")
 
         return text

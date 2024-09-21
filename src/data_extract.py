@@ -16,7 +16,6 @@ def read_dataset(dataset_path: str) -> pd.DataFrame:
     data = data[data["rating"] != "0."]
 
     sampled_df, _ = train_test_split(
-        #0.15
         data, train_size=0.15, stratify=data["rating"], random_state=42
     )
     return sampled_df

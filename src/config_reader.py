@@ -1,4 +1,4 @@
-from hydra import compose, initialize_config_dir #, GlobalHydra
+from hydra import compose, initialize_config_dir  # , GlobalHydra
 from omegaconf import OmegaConf, DictConfig
 import os
 
@@ -14,8 +14,6 @@ def read_configs():
         initialize_config_dir(config_dir=config_path)
     except:
         pass
-
-    # Initialize the config directory
 
     # Compose the configuration
     cfg = dict(compose(config_name="main"))

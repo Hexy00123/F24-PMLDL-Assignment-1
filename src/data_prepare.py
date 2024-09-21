@@ -53,7 +53,7 @@ def prepare_data_for_transformer() -> NoReturn:
 
 
 def prepare_data_for_tf_idf() -> NoReturn:
-    from dags_config import LOGGER, DATA_PATH, BUCKET   
+    from dags_config import LOGGER, DATA_PATH, BUCKET
 
     LOGGER.info(f"Open S3 connection...")
 
