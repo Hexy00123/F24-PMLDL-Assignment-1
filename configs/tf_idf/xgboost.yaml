@@ -1,0 +1,11 @@
+model_name: XGBoost_classic
+
+module_name: "xgboost"
+class_name: "XGBClassifier"
+
+params:
+  classifier__n_estimators: 200
+  classifier__max_depth: 4
+  classifier__device: 'cpu' # cuda 
+
+  embedding__max_features: 350

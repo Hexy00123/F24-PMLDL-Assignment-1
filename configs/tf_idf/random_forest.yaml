@@ -1,0 +1,10 @@
+model_name: RandomForest_classic
+
+module_name: "sklearn.ensemble"
+class_name: "RandomForestClassifier"
+
+params:
+  classifier__n_estimators: 120
+  classifier__max_depth: 10
+  
+  embedding__max_features: 350

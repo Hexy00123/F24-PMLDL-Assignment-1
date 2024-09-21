@@ -1,0 +1,20 @@
+defaults:
+  - _self_
+
+metrics:
+  module: "custom_metrics"
+
+  methods: 
+   - f1_weighted
+   - f1_macro
+
+model_signatures: 
+  tf_idf: 
+    - catboost
+    - xgboost
+    - random_forest
+  
+  transformer: 
+    - svm
+    - catboost
+    - xgboost

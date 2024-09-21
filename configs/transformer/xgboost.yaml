@@ -1,0 +1,9 @@
+model_name: XGBoost_transformer
+
+module_name: "xgboost"
+class_name: "XGBClassifier"
+
+params:
+  n_estimators: [50, 150, 300]
+  depth: [2, 3, 5]
+  device: ['cpu'] # cuda 

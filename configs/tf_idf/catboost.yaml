@@ -1,0 +1,12 @@
+model_name: CatBoost_classic
+
+module_name: "catboost"
+class_name: "CatBoostClassifier"
+ 
+params:
+  classifier__iterations: 200
+  classifier__depth: 4
+  classifier__logging_level: 'Silent'
+  classifier__task_type: 'GPU' # 'CPU' 
+
+  embedding__max_features: 350

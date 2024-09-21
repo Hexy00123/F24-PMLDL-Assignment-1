@@ -1,0 +1,10 @@
+model_name: SVM_transformer
+
+module_name: "sklearn.svm"
+class_name: "SVC"
+
+params:
+  iterations: [100, 500, 1000]
+  depth: [2, 3, 5]
+  logging_level: ['Silent']
+  task_type: ['CPU'] # GPU 
