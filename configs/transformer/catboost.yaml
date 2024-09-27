@@ -4,7 +4,7 @@ module_name: "catboost"
 class_name: "CatBoostClassifier"
 
 params:
-  iterations: [100, 500, 1000]
-  depth: [2, 3, 5]
-  logging_level: ['Silent']
-  task_type: ['CPU'] # GPU 
+  classifier__iterations: 50
+  classifier__depth: 3
+  classifier__logging_level: 'Silent'
+  classifier__task_type: 'GPU' # 'CPU' 

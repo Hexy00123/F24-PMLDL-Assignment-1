@@ -16,3 +16,7 @@ BUCKET = "pmldl-assignment-1"
 DATA_PATH = "data/"
 
 CONFIG = read_configs()
+
+
+def relax():
+    pass

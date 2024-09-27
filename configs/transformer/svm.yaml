@@ -4,7 +4,6 @@ module_name: "sklearn.svm"
 class_name: "SVC"
 
 params:
-  iterations: [100, 500, 1000]
-  depth: [2, 3, 5]
-  logging_level: ['Silent']
-  task_type: ['CPU'] # GPU 
+  classifier__kernel: 'rbf'
+  classifier__max_iter: 100
+  

@@ -1,10 +1,12 @@
 import os
 import sys
 import pickle
+import numpy as np
 import pandas as pd
 from typing import NoReturn
 from sklearn.model_selection import train_test_split
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from fastembed import TextEmbedding
 
 sys.path.append(f"{os.environ['PROJECT_ROOT']}/src")
 from text_process import TextPreprocessor, preprocess_targets
@@ -50,6 +52,40 @@ def prepare_data_for_transformer() -> NoReturn:
         )
 
     LOGGER.info(f"Data preprocessed.")
+
+
+def make_transformer_embeddins() -> NoReturn:
+    from dags_config import LOGGER, DATA_PATH, BUCKET
+
+    LOGGER.info(f"Open S3 connection...")
+
+    s3_hook = S3Hook("s3_connector")
+    session = s3_hook.get_session("ru-central1")
+    resource = session.resource("s3")
+
+    LOGGER.info(f"Downloading raw data from S3...")
+    data = {}
+    for filename in ["X_train", "X_test"]:
+        file = s3_hook.download_file(
+            key=DATA_PATH + f"preprocessed/transformer/{filename}.pkl",
+            bucket_name=BUCKET,
+        )
+        data[filename] = pd.read_pickle(file)
+    LOGGER.info(f"Downloaded succesfully...")
+
+    model = TextEmbedding(model_name="intfloat/multilingual-e5-large")
+
+    for dataset_name in data.keys():
+        embeddings = []
+        for text in data[dataset_name].iloc[:, 0]:
+            embeddings.append(next(model.embed(documents=text)))
+
+        embeddings = pickle.dumps(np.array(embeddings))
+        resource.Object(
+            BUCKET, DATA_PATH + f"preprocessed/transformer/{dataset_name}_embeddings.pkl"
+        ).put(Body=embeddings)
+
+    LOGGER.info(f"Embeddings done.")
 
 
 def prepare_data_for_tf_idf() -> NoReturn:
@@ -100,3 +136,7 @@ def prepare_data_for_tf_idf() -> NoReturn:
         )
 
     LOGGER.info(f"Data preprocessed.")
+
+
+if __name__ == "__main__":
+    make_transformer_embeddins()

@@ -10,3 +10,4 @@ params:
   classifier__task_type: 'GPU' # 'CPU' 
 
   embedding__max_features: 350
+  

@@ -4,6 +4,7 @@ module_name: "xgboost"
 class_name: "XGBClassifier"
 
 params:
-  n_estimators: [50, 150, 300]
-  depth: [2, 3, 5]
-  device: ['cpu'] # cuda 
+  classifier__n_estimators: 100
+  classifier__max_depth: 3
+  classifier__device: 'cpu' # cuda 
+  

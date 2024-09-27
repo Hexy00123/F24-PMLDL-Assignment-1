@@ -20,14 +20,21 @@ from dags_config import *
 
 sys.path.append(f"{PROJECT_ROOT}/src")
 from data_extract import extract_data
-from data_prepare import prepare_data_for_transformer, prepare_data_for_tf_idf
+from data_prepare import (
+    prepare_data_for_transformer,
+    prepare_data_for_tf_idf,
+    make_transformer_embeddins,
+)
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import f1_score, precision_score, recall_score
 
-from train_models import make_train_operator_for_tf_idf
+from train_models import (
+    make_train_operator_for_tf_idf,
+    make_train_operator_for_transformer,
+)
 
 
 DEFAULT_ARGS = {
@@ -56,21 +63,28 @@ task_init = PythonOperator(task_id="init", python_callable=init, dag=dag)
 task_extract_data = PythonOperator(
     # extract_data
     task_id="extract_data",
-    python_callable=extract_data,
-    dag=dag,
-)
-
-task_prepare_data_for_transformer = PythonOperator(
-    # prepare_data_for_transformer
-    task_id="prepare_data_for_transformer",
-    python_callable=prepare_data_for_transformer,
+    python_callable=relax,
     dag=dag,
 )
 
 task_prepare_data_for_tf_idf = PythonOperator(
     # prepare_data_for_tf_idf
     task_id="prepare_data_for_tf_idf",
-    python_callable=prepare_data_for_tf_idf,
+    python_callable=relax,
+    dag=dag,
+)
+
+task_prepare_data_for_transformer = PythonOperator(
+    # prepare_data_for_transformer
+    task_id="prepare_data_for_transformer",
+    python_callable=relax,
+    dag=dag,
+)
+
+task_make_transformer_embeddins = PythonOperator(
+    # make_transformer_embeddins
+    task_id="make_transformer_embeddins",
+    python_callable=relax,
     dag=dag,
 )
 
@@ -79,22 +93,10 @@ tf_idf_tasks = [
     for model_params in CONFIG["models"]["tf_idf"]
 ]
 
-
-# task_train_transformer_svm = PythonOperator(
-#     task_id="train_transformer_svm", python_callable=train_transformer_svm, dag=dag
-# )
-
-# task_train_transformer_catboost = PythonOperator(
-#     task_id="train_transformer_catboost",
-#     python_callable=train_transformer_catboost,
-#     dag=dag,
-# )
-
-# task_train_transformer_xgboost = PythonOperator(
-#     task_id="train_transformer_xgboost",
-#     python_callable=train_transformer_xgboost,
-#     dag=dag,
-# )
+transformer_tasks = [
+    make_train_operator_for_transformer(model_params, CONFIG["metrics"], dag)
+    for model_params in CONFIG["models"]["transformer"]
+]
 
 (
     task_init
@@ -102,5 +104,10 @@ tf_idf_tasks = [
     >> [task_prepare_data_for_transformer, task_prepare_data_for_tf_idf]
 )
 
+task_prepare_data_for_transformer.set_downstream(task_make_transformer_embeddins)
+
 for task in tf_idf_tasks:
     task_prepare_data_for_tf_idf.set_downstream(task)
+
+for task in transformer_tasks:  
+    task_make_transformer_embeddins.set_downstream(task)
