@@ -177,3 +177,5 @@ services/airflow/airflow.cfg
 services/airflow/airflow.db
 services/airflow/standalone_admin_password.txt
 services/airflow/webserver_config.py
+
+.python-version

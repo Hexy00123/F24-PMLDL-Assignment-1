@@ -1,0 +1,8 @@
+model_name: RandomForest_transformer
+
+module_name: "sklearn.ensemble"
+class_name: "RandomForestClassifier"
+
+params:
+  classifier__n_estimators: 120
+  classifier__max_depth: 10
