@@ -1,0 +1,5 @@
+scikit-learn
+nltk
+xgboost
+catboost    
+fastembed-gpu               
