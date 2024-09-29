@@ -10,12 +10,12 @@ metrics:
 
 model_signatures: 
   tf_idf: 
-    # - catboost
-    # - xgboost
+    - catboost
+    - xgboost
     - random_forest
   
   transformer: 
-    # - svm
-    # - catboost
+    - svm
+    - catboost
     - random_forest
     - xgboost

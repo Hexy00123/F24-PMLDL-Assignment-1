@@ -63,21 +63,21 @@ task_init = PythonOperator(task_id="init", python_callable=init, dag=dag)
 task_extract_data = PythonOperator(
     # extract_data
     task_id="extract_data",
-    python_callable=relax,
+    python_callable=extract_data,
     dag=dag,
 )
 
 task_prepare_data_for_tf_idf = PythonOperator(
     # prepare_data_for_tf_idf
     task_id="prepare_data_for_tf_idf",
-    python_callable=relax,
+    python_callable=prepare_data_for_tf_idf,
     dag=dag,
 )
 
 task_prepare_data_for_transformer = PythonOperator(
     # prepare_data_for_transformer
     task_id="prepare_data_for_transformer",
-    python_callable=relax,
+    python_callable=prepare_data_for_transformer,
     dag=dag,
 )
 
@@ -106,8 +106,14 @@ transformer_tasks = [
 
 task_prepare_data_for_transformer.set_downstream(task_make_transformer_embeddins)
 
+temp = task_prepare_data_for_tf_idf
 for task in tf_idf_tasks:
-    task_prepare_data_for_tf_idf.set_downstream(task)
+    temp.set_downstream(task)
+    temp = task
+    # task_prepare_data_for_tf_idf.set_downstream(task)
 
+temp = task_make_transformer_embeddins
 for task in transformer_tasks:  
-    task_make_transformer_embeddins.set_downstream(task)
+    temp.set_downstream(task)
+    temp = task
+    # task_make_transformer_embeddins.set_downstream(task)

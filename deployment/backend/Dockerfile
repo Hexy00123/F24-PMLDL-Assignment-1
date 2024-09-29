@@ -9,4 +9,4 @@ COPY ./deployment/model /model
 
 WORKDIR /backend
 
-CMD ["python3", "-m", "src"]    
+CMD ["python3", "-m", "src"]        
