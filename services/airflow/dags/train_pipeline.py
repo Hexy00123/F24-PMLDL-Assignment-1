@@ -106,14 +106,14 @@ transformer_tasks = [
 
 task_prepare_data_for_transformer.set_downstream(task_make_transformer_embeddins)
 
-temp = task_prepare_data_for_tf_idf
+# temp = task_prepare_data_for_tf_idf
 for task in tf_idf_tasks:
-    temp.set_downstream(task)
-    temp = task
-    # task_prepare_data_for_tf_idf.set_downstream(task)
+    # temp.set_downstream(task)
+    # temp = task
+    task_prepare_data_for_tf_idf.set_downstream(task)
 
-temp = task_make_transformer_embeddins
+# temp = task_make_transformer_embeddins
 for task in transformer_tasks:  
-    temp.set_downstream(task)
-    temp = task
-    # task_make_transformer_embeddins.set_downstream(task)
+    # temp.set_downstream(task)
+    # temp = task
+    task_make_transformer_embeddins.set_downstream(task)
