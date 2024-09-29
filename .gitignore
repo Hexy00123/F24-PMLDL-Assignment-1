@@ -177,9 +177,10 @@ services/airflow/airflow.cfg
 services/airflow/airflow.db
 services/airflow/standalone_admin_password.txt
 services/airflow/webserver_config.py
-data/checkpoints/models*
-data/checkpoints/ggml*
+data/checkpoints/models--qdrant--multilingual-e5-large-onnx
+data/checkpoints/ggml-gritlm-7b-q4_k.gguf
 data/raw/geo*
+deployment/model/models--qdrant--multilingual-e5-large-onnx
 
 
 .python-version
