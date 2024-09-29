@@ -17,9 +17,11 @@ services:
       dockerfile: ./deployment/backend/Dockerfile
     volumes:
       - ./deployment/model:/deployment/model
+    environment:
+      -  MODEL_FILENAME=model_transformer.pkl
     ports:
       - 8001:8000
-    networks:
+    networks: 
       - net 
 
 networks:
