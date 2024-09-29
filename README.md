@@ -85,7 +85,7 @@ After the pipeline is run you can check your models and their metrics in MLFlow 
 Before deploying you need to download the model.
 
 ```src
-python src/download_model.sh --filename=filename.pkl --model_url=model_url
+python src/download_model.py --filename=filename.pkl --model_url=model_url
 ```
 
 Model url looks like this and can be found in MLFlow UI:  
