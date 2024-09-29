@@ -292,6 +292,7 @@ sqlalchemy-redshift==0.8.14
 SQLAlchemy-Utils==0.41.2
 sqlalchemy2-stubs==0.0.2a38
 sqlparse==0.5.1
+st-star-rating==0.0.6
 stack-data==0.6.3
 starlette==0.38.5
 statsmodels==0.14.3
